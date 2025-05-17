@@ -1,0 +1,27 @@
+az deployment group create \
+            --resource-group fruit-quality-detector \
+            --template-uri https://raw.githubusercontent.com/Azure/iotedge-vm-deploy/1.2.0/edgeDeploy.json \
+            --parameters dnsLabelPrefix=<vm_name> \
+            --parameters adminUsername=<username> \
+            --parameters deviceConnectionString="<connection_string>" \
+            --parameters authenticationType=password \
+            --parameters adminPasswordOrKey="<password>"
+            az vm list --resource-group fruit-quality-detector \
+           --output table \
+           --show-details
+           az vm auto-shutdown --resource-group fruit-quality-detector \
+                    --name <vm_name> \
+                    --time <shutdown_time_utc>
+                    az network nsg list --resource-group fruit-quality-detector \
+                    --output table
+                    az network nsg rule create \
+                    --resource-group fruit-quality-detector \
+                    --name Port_80 \
+                    --protocol tcp \
+                    --priority 1010 \
+                    --destination-port-range 80 \
+                    --nsg-name <nsg name>
+                    az vm deallocate --resource-group fruit-quality-detector \
+                 --name <vm_name>
+                 az vm start --resource-group fruit-quality-detector \
+            --name <vm_name>
